@@ -28,13 +28,37 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
+			this.Screen = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.Screen)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// Screen
+			// 
+			this.Screen.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.Screen.Location = new System.Drawing.Point(0, 0);
+			this.Screen.Name = "Screen";
+			this.Screen.Size = new System.Drawing.Size(618, 424);
+			this.Screen.TabIndex = 0;
+			this.Screen.TabStop = false;
+			this.Screen.Paint += new System.Windows.Forms.PaintEventHandler(this.Screen_Paint);
+			// 
+			// Form1
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Text = "Form1";
+			this.ClientSize = new System.Drawing.Size(618, 424);
+			this.Controls.Add(this.Screen);
+			this.Name = "Form1";
+			this.Text = "DoukutsuDebug v0.1";
+			this.Load += new System.EventHandler(this.Form1_Load);
+			((System.ComponentModel.ISupportInitialize)(this.Screen)).EndInit();
+			this.ResumeLayout(false);
+
 		}
 
 		#endregion
+
+		private System.Windows.Forms.PictureBox Screen;
 	}
 }
 

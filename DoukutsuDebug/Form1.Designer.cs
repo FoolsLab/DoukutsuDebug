@@ -40,7 +40,7 @@
             this.Screen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Screen.Location = new System.Drawing.Point(0, 0);
             this.Screen.Name = "Screen";
-            this.Screen.Size = new System.Drawing.Size(837, 847);
+            this.Screen.Size = new System.Drawing.Size(1081, 847);
             this.Screen.TabIndex = 0;
             this.Screen.TabStop = false;
             this.Screen.Paint += new System.Windows.Forms.PaintEventHandler(this.Screen_Paint);
@@ -59,12 +59,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 847);
+            this.ClientSize = new System.Drawing.Size(1081, 847);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.Screen);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "DoukutsuDebug v1.1";
+            this.Text = "DoukutsuDebug v1.2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Screen)).EndInit();

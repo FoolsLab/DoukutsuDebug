@@ -40,14 +40,14 @@
             this.Screen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Screen.Location = new System.Drawing.Point(0, 0);
             this.Screen.Name = "Screen";
-            this.Screen.Size = new System.Drawing.Size(1159, 548);
+            this.Screen.Size = new System.Drawing.Size(837, 847);
             this.Screen.TabIndex = 0;
             this.Screen.TabStop = false;
             this.Screen.Paint += new System.Windows.Forms.PaintEventHandler(this.Screen_Paint);
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(767, 400);
+            this.trackBar1.Location = new System.Drawing.Point(326, 238);
             this.trackBar1.Maximum = 1000;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(318, 69);
@@ -59,7 +59,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1159, 548);
+            this.ClientSize = new System.Drawing.Size(837, 847);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.Screen);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

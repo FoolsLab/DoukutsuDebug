@@ -19,7 +19,9 @@ namespace DoukutsuDebug
 		public int MyCharY;
 		public int MyCharVelX;
 		public int MyCharVelY;
-		public int Frame;
+        public int MyCharState;
+        public byte ShotConsumeTimer;
+        public int Frame;
         public byte BoostInfo;
         public int MyCharCollisionState;
 
@@ -29,6 +31,20 @@ namespace DoukutsuDebug
         public string ScriptStr;
 
         public UInt32 holdrand;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
+        public byte[] spriteExist;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public byte[] spriteMBExist;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+        public Int32[] EffectExist;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public Int32[] NumEffectExist;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+        public Int32[] BulletShotExist;
     };
 
 	public partial class Form1 : Form
@@ -301,12 +317,68 @@ namespace DoukutsuDebug
                 }
             }
 
-            e.Graphics.DrawString(String.Format("Frame:{0, 10}", dat.Frame), f, Brushes.White, new Point(0, 360));
-            e.Graphics.DrawString(String.Format("BoostState:{0, 10}", dat.BoostInfo), f, Brushes.White, new Point(0, 400));
-            e.Graphics.DrawString(String.Format("Collision:0x{0, 8:X}", dat.MyCharCollisionState), f, Brushes.White, new Point(0, 440));
-            e.Graphics.DrawString(String.Format("holdrand:{0, 10}", dat.holdrand), f, Brushes.White, new Point(0, 480));
+            e.Graphics.DrawString(String.Format("      Frame:{0, 10}", dat.Frame), f, Brushes.White, new Point(0, 360));
+            e.Graphics.DrawString(String.Format(" BoostState:{0, 10}", dat.BoostInfo), f, Brushes.White, new Point(0, 400));
+            e.Graphics.DrawString(String.Format("  Collision:0x{0, 8:X}", dat.MyCharCollisionState), f, Brushes.White, new Point(0, 440));
+            e.Graphics.DrawString(String.Format("  ShotTimer:  {0, 8}", dat.ShotConsumeTimer), f, Brushes.White, new Point(0, 480));
+            e.Graphics.DrawString(String.Format("MyCharState:0x{0, 8:X}", dat.MyCharState), f, Brushes.White, new Point(0, 520));
+            e.Graphics.DrawString(String.Format("   holdrand:{0, 10}", dat.holdrand), f, Brushes.White, new Point(0, 560));
 
-            e.Graphics.DrawString(String.Format("Cmd:{0, 10}", dat.ScriptStr.Replace("\r", "").Replace("\n", " ")), f, Brushes.White, new Point(0, 520));
+            Pen ypen = new Pen(Color.Yellow);
+            Brush gbrush = new SolidBrush(Color.Green);
+
+            e.Graphics.DrawString("Sprite", f, Brushes.White, new Point(0, 610));
+            e.Graphics.FillRectangle(gbrush, 160, 600, 512, 50);
+            for (int i = 0; i < 256; i++)
+            {
+                if(dat.spriteExist[i] != 0)
+                {
+                    e.Graphics.DrawLine(ypen, 160 + 2*i, 600, 160 + 2*i, 625);
+                }
+                if (dat.spriteExist[i + 256] != 0)
+                {
+                    e.Graphics.DrawLine(ypen, 160 + 2*i, 625, 160 + 2*i, 650);
+                }
+            }
+            e.Graphics.FillRectangle(gbrush, 160, 650, 32, 25);
+            for (int i = 0; i < 16; i++)
+            {
+                if (dat.spriteMBExist[i] != 0)
+                {
+                    e.Graphics.DrawLine(ypen, 160 + 2 * i, 650, 160 + 2 * i, 675);
+                }
+            }
+
+            e.Graphics.DrawString("Effect", f, Brushes.White, new Point(0, 675));
+            e.Graphics.FillRectangle(Brushes.Green, 160, 680, 128, 25);
+            for (int i = 0; i < 64; i++)
+            {
+                if (dat.EffectExist[i] != 0)
+                {
+                    e.Graphics.DrawLine(ypen, 160 + 2 * i, 680, 160 + 2 * i, 705);
+                }
+            }
+
+            e.Graphics.DrawString("NumEffect", f, Brushes.White, new Point(0, 705));
+            e.Graphics.FillRectangle(Brushes.Green, 160, 710, 32, 25);
+            for (int i = 0; i < 16; i++)
+            {
+                if (dat.NumEffectExist[i] != 0)
+                {
+                    e.Graphics.DrawLine(ypen, 160 + 2 * i, 710, 160 + 2 * i, 735);
+                }
+            }
+
+            e.Graphics.DrawString("Shot", f, Brushes.White, new Point(0, 735));
+            e.Graphics.FillRectangle(Brushes.Green, 160, 740, 128, 25);
+            for (int i = 0; i < 64; i++)
+            {
+                if (dat.BulletShotExist[i] != 0)
+                {
+                    e.Graphics.DrawLine(ypen, 160 + 2 * i, 740, 160 + 2 * i, 765);
+                }
+            }
+            e.Graphics.DrawString(String.Format("Cmd:{0, 10}", dat.ScriptStr.Replace("\r", "").Replace("\n", " ")), f, Brushes.White, new Point(0, 770));
         }
 
         private void Form1_FormClosed(object sender, FormClosingEventArgs e)

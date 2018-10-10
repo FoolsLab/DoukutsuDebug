@@ -12,23 +12,44 @@ namespace DoukutsuDebug
     {
         static Font f = new Font("MS Gothic", 16);
 
-        public static void Present(Graphics g, Form1.CSData dat)
+        static string GetBulletName(int type)
+        {
+            string[] tbl = {
+                "--",
+                "Sn",
+                "PS",
+                "FB",
+                "MG",
+                "Ms",
+                "Ms",
+                "Bb",
+                "?",
+                "Bd",
+                "SM",
+                "SM",
+                "Nm",
+                "Sp"
+            };
+            return tbl[type];
+        }
+
+        public static void Present(Graphics g, CSData dat)
         {
             g.DrawString(
-    String.Format(
-        "Pos X:{0, 10}    =   {1}0x{2, 8:X}    =    0x2000*{3, 4} {4} 0x{5, 4:X}",
-        +dat.MyCharX,
-        (dat.MyCharX < 0) ? '-' : ' ',
-        Math.Abs(dat.MyCharX),
-        (dat.MyCharX + 0x1000) / 0x2000,
-        (((dat.MyCharX + 0x1000) % 0x2000 - 0x1000) < 0) ? '-' : '+',
-        Math.Abs((dat.MyCharX + 0x1000) % 0x2000 - 0x1000)),
-    f, Brushes.White, new Point(0, 0));
+                String.Format(
+                    "Pos X:{0, 10}    =   0x2000*{3, 4} {4} 0x{5, 4:X}",
+                    +dat.MyCharX,
+                    (dat.MyCharX < 0) ? '-' : ' ',
+                    Math.Abs(dat.MyCharX),
+                    (dat.MyCharX + 0x1000) / 0x2000,
+                    (((dat.MyCharX + 0x1000) % 0x2000 - 0x1000) < 0) ? '-' : '+',
+                    Math.Abs((dat.MyCharX + 0x1000) % 0x2000 - 0x1000)),
+                f, Brushes.White, new Point(0, 0));
 
 
             g.DrawString(
                 String.Format(
-                    "Pos Y:{0, 10}    =   {1}0x{2, 8:X}    =    0x2000*{3, 4} {4} 0x{5, 4:X}",
+                    "Pos Y:{0, 10}    =   0x2000*{3, 4} {4} 0x{5, 4:X}",
                     +dat.MyCharY,
                     (dat.MyCharY < 0) ? '-' : ' ',
                     Math.Abs(dat.MyCharY),
@@ -40,7 +61,7 @@ namespace DoukutsuDebug
 
             g.DrawString(
                 String.Format(
-                    "Vel X:{0, 10}    =   {1}0x{2, 8:X}",
+                    "Vel X:{0, 10}",
                     dat.MyCharVelX,
                     (dat.MyCharVelX < 0) ? '-' : ' ',
                     Math.Abs(dat.MyCharVelX)),
@@ -48,7 +69,7 @@ namespace DoukutsuDebug
 
             g.DrawString(
                 String.Format(
-                    "Vel Y:{0, 10}    =   {1}0x{2, 8:X}",
+                    "Vel Y:{0, 10}",
                     dat.MyCharVelY,
                     (dat.MyCharVelY < 0) ? '-' : ' ',
                     Math.Abs(dat.MyCharVelY)),
@@ -65,7 +86,7 @@ namespace DoukutsuDebug
                         sz.Width, sz.Height));
 
                 {
-                    Pen ColPen = new Pen(Brushes.Green, 3);
+                    Pen ColPen = new Pen(Brushes.LawnGreen, 3);
                     Pen FloPen = new Pen(Brushes.Pink, 6);
                     {
                         if ((dat.MyCharCollisionState & 0x1000) > 0)
@@ -187,76 +208,82 @@ namespace DoukutsuDebug
             }
 
             g.DrawString(String.Format("      Frame:{0, 10}", dat.Frame), f, Brushes.White, new Point(0, 360));
+
+            g.FillRectangle(Brushes.DarkGreen, 200, 401, dat.BoosterFuel * 250 / 50, 28);
+            g.DrawRectangle(dat.BoostInfo != 0 ? Pens.Red : Pens.White, 200, 401, 250, 28);
             g.DrawString(String.Format("BoosterFuel:{0, 10}", dat.BoosterFuel), f, Brushes.White, new Point(0, 400));
-            g.FillRectangle(Brushes.LightGreen, 400, 405, dat.BoosterFuel * 250 / 50, 24);
-            g.DrawRectangle(dat.BoostInfo != 0 ? Pens.Red : Pens.White, 400, 405, 250, 24);
+
+            g.FillRectangle(Brushes.DarkSlateBlue, 200, 441, dat.MyCharAir * 250 / 1000, 28);
+            g.DrawRectangle((dat.MyCharCollisionState & 0x100) != 0 ? Pens.Red : Pens.White, 200, 441, 250, 28);
             g.DrawString(String.Format("  AirRemain:{0, 10}", dat.MyCharAir), f, Brushes.White, new Point(0, 440));
-            g.FillRectangle(Brushes.Aqua, 400, 445, dat.MyCharAir * 250 / 1000, 24);
-            g.DrawRectangle((dat.MyCharCollisionState & 0x100) != 0 ? Pens.Red : Pens.White, 400, 445, 250, 24);
+
+            g.FillRectangle(Brushes.DarkSalmon, 200, 481, dat.MyCharDamageTimer * 250 / 128, 28);
+            g.DrawRectangle(Pens.White, 200, 481, 250, 28);
             g.DrawString(String.Format("DamageTimer:  {0, 8}", dat.MyCharDamageTimer), f, Brushes.White, new Point(0, 480));
-            g.FillRectangle(Brushes.Orange, 400, 485, dat.MyCharDamageTimer * 250 / 128, 24);
-            g.DrawRectangle(Pens.White, 400, 485, 250, 24);
+
             g.DrawString(String.Format("MyCharState:0x{0, 8:X}", dat.MyCharState), f, Brushes.White, new Point(0, 520));
             g.DrawString(String.Format("   holdrand:{0, 10}", dat.holdrand), f, Brushes.White, new Point(0, 560));
 
             Pen ypen = new Pen(Color.Yellow);
             Brush gbrush = new SolidBrush(Color.Green);
 
-            g.DrawString("Sprite", f, Brushes.White, new Point(0, 610));
-            g.FillRectangle(gbrush, 160, 600, 512, 50);
-            for (int i = 0; i < 256; i++)
+            g.DrawString("   Sprite", f, Brushes.White, new Point(0, 600));
+            g.FillRectangle(gbrush, 160, 600, 256, 100);
+            for (int i = 0; i < 4; i++)
             {
-                if (dat.SpriteDB[i].Existence != 0)
+                for (int j = 0; j < 128; j++)
                 {
-                    g.DrawLine(ypen, 160 + 2 * i, 600, 160 + 2 * i, 625);
-                }
-                if (dat.SpriteDB[i + 256].Existence != 0)
-                {
-                    g.DrawLine(ypen, 160 + 2 * i, 625, 160 + 2 * i, 650);
+                    var n = 128 * i + j;
+                    if (dat.SpriteDB[n].Existence != 0)
+                    {
+                        g.DrawLine(ypen, 160 + 2 * j, 600 + i * 25, 160 + 2 * j, 600 + i * 25 + 25);
+                    }
                 }
             }
-            g.FillRectangle(gbrush, 160, 650, 32, 25);
+            g.FillRectangle(gbrush, 160, 702, 32, 25);
             for (int i = 0; i < 16; i++)
             {
                 if (dat.MBSpriteDB[i].Existence != 0)
                 {
-                    g.DrawLine(ypen, 160 + 2 * i, 650, 160 + 2 * i, 675);
+                    g.DrawLine(ypen, 160 + 2 * i, 702, 160 + 2 * i, 727);
                 }
             }
 
-            g.DrawString("Effect", f, Brushes.White, new Point(0, 675));
-            g.FillRectangle(Brushes.Green, 160, 680, 128, 25);
+            g.DrawString("   Effect", f, Brushes.White, new Point(0, 730));
+            g.FillRectangle(Brushes.Green, 160, 732, 128, 25);
             for (int i = 0; i < 64; i++)
             {
                 if (dat.EffectExist[i] != 0)
                 {
-                    g.DrawLine(ypen, 160 + 2 * i, 680, 160 + 2 * i, 705);
+                    g.DrawLine(ypen, 160 + 2 * i, 732, 160 + 2 * i, 732+25);
                 }
             }
 
-            g.DrawString("NumEffect", f, Brushes.White, new Point(0, 705));
-            g.FillRectangle(Brushes.Green, 160, 710, 32, 25);
+            g.DrawString("NumEffect", f, Brushes.White, new Point(0, 760));
+            g.FillRectangle(Brushes.Green, 160, 762, 32, 25);
             for (int i = 0; i < 16; i++)
             {
                 if (dat.NumEffectExist[i] != 0)
                 {
-                    g.DrawLine(ypen, 160 + 2 * i, 710, 160 + 2 * i, 735);
+                    g.DrawLine(ypen, 160 + 2 * i, 762, 160 + 2 * i, 762+25);
                 }
             }
 
-            g.DrawString("Shot", f, Brushes.White, new Point(0, 735));
-            g.FillRectangle(Brushes.Green, 160, 740, 128, 25);
+            g.DrawString("     Shot", f, Brushes.White, new Point(0, 790));
+            g.FillRectangle(Brushes.Green, 160, 792, 128, 25);
             for (int i = 0; i < 64; i++)
             {
                 if (dat.BulletShotDB[i].Exist != 0)
                 {
-                    g.DrawLine(ypen, 160 + 2 * i, 740, 160 + 2 * i, 765);
+                    g.DrawLine(ypen, 160 + 2 * i, 792, 160 + 2 * i, 792+25);
                 }
             }
-            g.DrawString(String.Format("Cmd:{0, 10}", dat.ScriptStr.Replace("\r", "").Replace("\n", " ")), f, Brushes.White, new Point(0, 770));
-            g.DrawString(String.Format("EventTimer:{0, 4}", dat.EventTimer), f, Brushes.White, new Point(0, 810));
-            g.FillRectangle(Brushes.Orange, 300, 815, Math.Min(dat.EventTimer, 16) * 250 / 16, 24);
-            g.DrawRectangle(Pens.White, 300, 815, 250, 24);
+            g.DrawString(String.Format("Cmd:{0, 10}", dat.ScriptStr.Replace("\r", "").Replace("\n", " ")), f, Brushes.White, new Point(0, 820));
+
+            g.FillRectangle(Brushes.DarkSalmon, 200, 861, Math.Min(dat.EventTimer, 16) * 250 / 16, 28);
+            g.DrawRectangle(Pens.White, 200, 861, 250, 28);
+            g.DrawString(String.Format(" EventTimer:{0, 4}", dat.EventTimer), f, Brushes.White, new Point(0, 860));
+
 
             g.DrawString(
                 String.Format(
@@ -264,10 +291,39 @@ namespace DoukutsuDebug
                     dat._290Timer / (50 * 60),
                     (dat._290Timer / 50) % 60,
                     (dat._290Timer * 100 / 50) % 100),
-                f, Brushes.White, new Point(675, 135));
+                f, Brushes.White, new Point(325, 210));
+            g.DrawString(
+                String.Format(
+                    "{0}/{1}",
+                    dat.MyCharHP,
+                    dat.MyCharMaxHP),
+                f, Brushes.White, new Point(325, 240));
+
             var vscr = DoukutsuRenderer.GetVScreen(dat);
-            g.DrawImage(vscr, 680, 170);
-            g.DrawRectangle(Pens.White, 680, 170, 320*3, 240*3);
+            g.DrawImage(vscr, 470, 210);
+            g.DrawRectangle(Pens.White, 470, 210, 320 * 3, 240 * 3);
+            
+            g.FillRectangle(Brushes.DarkRed,
+                470 + (dat.UsingBulletIndex % 2) * 480,
+                88 + (dat.UsingBulletIndex / 2) * 28,
+                480,
+                30);
+            for (int i = 0; i < 8; i++)
+            {
+                var trueType = dat.PossessBulletDB[i].type * 3 + dat.PossessBulletDB[i].lv - 1;
+
+                g.DrawString(
+                    String.Format(
+                        "{0, 2} Lv{1} Exp{2, 3}/{3, 3} {4, 3}/{5, 3}",
+                        GetBulletName(dat.PossessBulletDB[i].type),
+                        dat.PossessBulletDB[i].lv,
+                        dat.PossessBulletDB[i].exp,
+                        trueType < 0 ? "-" : dat.BulletMaxExpTbl[trueType].ToString(),
+                        dat.PossessBulletDB[i].shotNum,
+                        dat.PossessBulletDB[i].shotNumMax),
+                    f, Brushes.White, new PointF(470 + (i % 2) * 480, 85 + (i / 2) * 28));
+            }
+
             vscr.Dispose();
         }
     }

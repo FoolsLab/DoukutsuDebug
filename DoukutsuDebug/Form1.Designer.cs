@@ -44,7 +44,7 @@
             this.Screen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Screen.Location = new System.Drawing.Point(0, 0);
             this.Screen.Name = "Screen";
-            this.Screen.Size = new System.Drawing.Size(1723, 977);
+            this.Screen.Size = new System.Drawing.Size(1448, 995);
             this.Screen.TabIndex = 0;
             this.Screen.TabStop = false;
             this.Screen.Click += new System.EventHandler(this.Screen_Click);
@@ -52,65 +52,70 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(326, 238);
+            this.trackBar1.Location = new System.Drawing.Point(248, 287);
             this.trackBar1.Maximum = 1000;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(318, 69);
+            this.trackBar1.Size = new System.Drawing.Size(208, 69);
             this.trackBar1.SmallChange = 20;
             this.trackBar1.TabIndex = 1;
+            this.trackBar1.Visible = false;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // Sprite_Mode0
             // 
             this.Sprite_Mode0.AutoSize = true;
             this.Sprite_Mode0.Checked = true;
-            this.Sprite_Mode0.Location = new System.Drawing.Point(949, 916);
+            this.Sprite_Mode0.Location = new System.Drawing.Point(728, 949);
             this.Sprite_Mode0.Name = "Sprite_Mode0";
             this.Sprite_Mode0.Size = new System.Drawing.Size(82, 22);
             this.Sprite_Mode0.TabIndex = 2;
             this.Sprite_Mode0.TabStop = true;
             this.Sprite_Mode0.Text = "Mode0";
             this.Sprite_Mode0.UseVisualStyleBackColor = true;
+            this.Sprite_Mode0.Visible = false;
             this.Sprite_Mode0.CheckedChanged += new System.EventHandler(this.Sprite_Mode0_CheckedChanged);
             // 
             // Sprite_Mode1
             // 
             this.Sprite_Mode1.AutoSize = true;
-            this.Sprite_Mode1.Location = new System.Drawing.Point(1054, 916);
+            this.Sprite_Mode1.Location = new System.Drawing.Point(833, 949);
             this.Sprite_Mode1.Name = "Sprite_Mode1";
             this.Sprite_Mode1.Size = new System.Drawing.Size(82, 22);
             this.Sprite_Mode1.TabIndex = 3;
             this.Sprite_Mode1.Text = "Mode1";
             this.Sprite_Mode1.UseVisualStyleBackColor = true;
+            this.Sprite_Mode1.Visible = false;
             this.Sprite_Mode1.CheckedChanged += new System.EventHandler(this.Sprite_Mode1_CheckedChanged);
             // 
             // Sprite_RemoveSmoke
             // 
             this.Sprite_RemoveSmoke.AutoSize = true;
-            this.Sprite_RemoveSmoke.Location = new System.Drawing.Point(1157, 916);
+            this.Sprite_RemoveSmoke.Location = new System.Drawing.Point(936, 949);
             this.Sprite_RemoveSmoke.Name = "Sprite_RemoveSmoke";
             this.Sprite_RemoveSmoke.Size = new System.Drawing.Size(144, 22);
             this.Sprite_RemoveSmoke.TabIndex = 4;
             this.Sprite_RemoveSmoke.Text = "RemoveSmoke";
             this.Sprite_RemoveSmoke.UseVisualStyleBackColor = true;
+            this.Sprite_RemoveSmoke.Visible = false;
             this.Sprite_RemoveSmoke.CheckedChanged += new System.EventHandler(this.Sprite_RemoveSmoke_CheckedChanged);
             // 
             // MyCharCamera
             // 
             this.MyCharCamera.AutoSize = true;
-            this.MyCharCamera.Location = new System.Drawing.Point(1320, 916);
+            this.MyCharCamera.Location = new System.Drawing.Point(1099, 949);
             this.MyCharCamera.Name = "MyCharCamera";
             this.MyCharCamera.Size = new System.Drawing.Size(150, 22);
             this.MyCharCamera.TabIndex = 5;
             this.MyCharCamera.Text = "MyCharCamera";
             this.MyCharCamera.UseVisualStyleBackColor = true;
+            this.MyCharCamera.Visible = false;
             this.MyCharCamera.CheckedChanged += new System.EventHandler(this.MyCharCamera_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1723, 977);
+            this.ClientSize = new System.Drawing.Size(1448, 995);
             this.Controls.Add(this.MyCharCamera);
             this.Controls.Add(this.Sprite_RemoveSmoke);
             this.Controls.Add(this.Sprite_Mode1);
@@ -119,7 +124,7 @@
             this.Controls.Add(this.Screen);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "DoukutsuDebug v1.3";
+            this.Text = "DoukutsuDebug v1.4";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Screen)).EndInit();
